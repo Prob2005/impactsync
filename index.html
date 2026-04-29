@@ -23,34 +23,42 @@
             <div class="bg-primary text-white p-2 rounded-lg"><i class="fa-solid fa-hands-holding-circle"></i></div>
             <h1 class="text-xl font-bold text-slate-900">ImpactSync</h1>
         </div>
-        <div class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-            Smart Resource Allocation
+        
+        <div class="flex items-center gap-3 bg-slate-100 p-1.5 rounded-lg border border-slate-200">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-2 hidden sm:inline">Demo Mode:</span>
+            <select id="roleSwitcher" class="text-sm font-medium bg-white border border-slate-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-primary text-slate-700 shadow-sm cursor-pointer">
+                <option value="organizer">NGO Organizer</option>
+                <option value="volunteer">Volunteer</option>
+            </select>
         </div>
     </header>
 
     <main class="flex-1 overflow-auto p-6">
         <div class="max-w-7xl mx-auto space-y-6">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="bg-blue-100 text-blue-600 p-4 rounded-full text-xl"><i class="fa-solid fa-list-check"></i></div>
-                    <div>
-                        <p class="text-sm text-slate-500 font-medium">Total Needs Posted</p>
-                        <p class="text-2xl font-bold text-slate-900" id="statTotal">0</p>
+            <div>
+                <h2 id="statsTitle" class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Global Impact</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 transition-all" id="statCard1">
+                        <div class="bg-blue-100 text-blue-600 p-4 rounded-full text-xl"><i class="fa-solid fa-list-check"></i></div>
+                        <div>
+                            <p class="text-sm text-slate-500 font-medium" id="statLabel1">Total Needs Posted</p>
+                            <p class="text-2xl font-bold text-slate-900" id="statTotal">0</p>
+                        </div>
                     </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="bg-green-100 text-green-600 p-4 rounded-full text-xl"><i class="fa-solid fa-user-check"></i></div>
-                    <div>
-                        <p class="text-sm text-slate-500 font-medium">Tasks Claimed</p>
-                        <p class="text-2xl font-bold text-slate-900" id="statClaimed">0</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 transition-all" id="statCard2">
+                        <div class="bg-green-100 text-green-600 p-4 rounded-full text-xl"><i class="fa-solid fa-user-check"></i></div>
+                        <div>
+                            <p class="text-sm text-slate-500 font-medium" id="statLabel2">Volunteer Spots Filled</p>
+                            <p class="text-2xl font-bold text-slate-900" id="statClaimed">0</p>
+                        </div>
                     </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="bg-purple-100 text-purple-600 p-4 rounded-full text-xl"><i class="fa-solid fa-clock"></i></div>
-                    <div>
-                        <p class="text-sm text-slate-500 font-medium">Impact Hours Allocated</p>
-                        <p class="text-2xl font-bold text-slate-900" id="statHours">0</p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 transition-all" id="statCard3">
+                        <div class="bg-purple-100 text-purple-600 p-4 rounded-full text-xl"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <p class="text-sm text-slate-500 font-medium" id="statLabel3">Total Impact Hours</p>
+                            <p class="text-2xl font-bold text-slate-900" id="statHours">0</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,17 +66,18 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
                 <div class="lg:col-span-1">
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-                        <h2 class="text-lg font-bold mb-4 border-b pb-2">Allocate Resource Need</h2>
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 transition-opacity duration-300" id="formContainer">
+                        <h2 class="text-lg font-bold mb-4 border-b pb-2" id="formHeader">Allocate Resource Need</h2>
                         <form id="taskForm" class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium mb-1">Task Description</label>
                                 <input type="text" id="taskTitle" required placeholder="e.g., Downtown Cleanup" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
                             </div>
+                            
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium mb-1">Category</label>
-                                    <select id="taskCategory" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
+                                    <select id="taskCategory" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none bg-white">
                                         <option value="Environment">Environment</option>
                                         <option value="Education">Education</option>
                                         <option value="Logistics">Logistics</option>
@@ -76,38 +85,93 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1">Est. Hours</label>
-                                    <input type="number" id="taskHours" required min="1" max="24" placeholder="Hrs" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
+                                    <label class="block text-sm font-medium mb-1">Volunteers Needed</label>
+                                    <input type="number" id="taskSpots" required min="1" value="1" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
                                 </div>
                             </div>
-                            <button type="submit" class="w-full bg-primary hover:bg-secondary text-white font-medium py-2 rounded-lg transition">
-                                Post Volunteer Need
-                            </button>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Date</label>
+                                    <input type="date" id="taskDate" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Time</label>
+                                    <input type="time" id="taskTime" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none text-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="col-span-1">
+                                    <label class="block text-sm font-medium mb-1">Est. Hours/Person</label>
+                                    <input type="number" id="taskHours" required min="1" max="24" placeholder="Hrs" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
+                                </div>
+                                <div class="col-span-1">
+                                    <label class="block text-sm font-medium mb-1">Location</label>
+                                    <input type="text" id="taskLocation" required placeholder="e.g., Central Park" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div class="flex gap-2 pt-2">
+                                <button type="submit" id="submitBtn" class="flex-1 bg-primary hover:bg-secondary text-white font-medium py-2 rounded-lg transition shadow-sm">
+                                    Post Need
+                                </button>
+                                <button type="button" id="cancelEditBtn" class="hidden bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg transition">
+                                    Cancel
+                                </button>
+                            </div>
                         </form>
-                        <button id="resetApp" class="w-full mt-4 text-sm text-red-500 hover:text-red-700 font-medium py-2">
-                            <i class="fa-solid fa-trash-can mr-1"></i> Reset Dashboard Data
+                        <button id="resetApp" class="w-full mt-6 text-sm text-red-500 hover:text-red-700 font-medium py-2 transition border border-transparent hover:border-red-200 rounded-lg">
+                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Factory Reset Dashboard
                         </button>
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="lg:col-span-2 flex flex-col gap-4">
                     
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col h-[500px]">
-                        <h2 class="text-lg font-bold mb-4 border-b pb-2 text-slate-800"><i class="fa-solid fa-inbox text-blue-500 mr-2"></i>Open Needs</h2>
-                        <div id="openTasks" class="flex-1 overflow-y-auto space-y-3 pr-2">
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-col sm:flex-row items-center gap-4 justify-between">
+                        <div class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-primary"></i> Find Needs:
+                        </div>
+                        <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
+                            <select id="filterCategory" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:outline-none bg-slate-50">
+                                <option value="all">All Categories</option>
+                                <option value="Environment">Environment</option>
+                                <option value="Education">Education</option>
+                                <option value="Logistics">Logistics</option>
+                                <option value="Health">Health</option>
+                            </select>
+                            <div class="relative w-full sm:w-64">
+                                <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                                <input type="text" id="filterSearch" placeholder="Search task or location..." class="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:outline-none bg-slate-50">
                             </div>
+                        </div>
                     </div>
 
-                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col h-[500px]">
-                        <h2 class="text-lg font-bold mb-4 border-b pb-2 text-slate-800"><i class="fa-solid fa-clipboard-check text-green-500 mr-2"></i>Resources Allocated</h2>
-                        <div id="claimedTasks" class="flex-1 overflow-y-auto space-y-3 pr-2">
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col h-[650px]">
+                            <h2 class="text-lg font-bold mb-4 border-b pb-2 text-slate-800 flex justify-between items-center">
+                                <span><i class="fa-solid fa-inbox text-blue-500 mr-2"></i>Open Needs</span>
+                                <span id="openCountBadge" class="bg-blue-100 text-blue-700 text-xs py-1 px-2 rounded-full">0</span>
+                            </h2>
+                            <div id="openTasks" class="flex-1 overflow-y-auto space-y-4 pr-2"></div>
+                        </div>
+
+                        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex flex-col h-[650px]">
+                            <h2 class="text-lg font-bold mb-4 border-b pb-2 text-slate-800 flex justify-between items-center">
+                                <span><i class="fa-solid fa-clipboard-check text-green-500 mr-2"></i>Resources Allocated</span>
+                                <span id="claimedCountBadge" class="bg-green-100 text-green-700 text-xs py-1 px-2 rounded-full">0</span>
+                            </h2>
+                            <div id="claimedTasks" class="flex-1 overflow-y-auto space-y-4 pr-2"></div>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
     </main>
+
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
 
     <script src="script.js"></script>
 </body>
