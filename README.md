@@ -4,7 +4,7 @@
 
 ImpactSync is a highly responsive, zero-backend web application prototype designed to solve the friction in traditional volunteer coordination. By providing local NGOs, community organizers, and volunteers with a seamless, centralized platform, ImpactSync ensures that human resources are allocated efficiently where they are needed most.
 
-🔗 **[View the Live Demo on GitHub Pages](https://prob2005.github.io/impactsync/)** *(Update this link to your actual GitHub Pages URL)*
+🔗 **[View the Live Demo on GitHub Pages](https://prob2005.github.io/impactsync/)**
 
 ---
 
