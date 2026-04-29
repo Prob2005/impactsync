@@ -71,3 +71,4 @@ Secure user authentication (Google/Email) with role-based access control.
 Geolocation mapping to show volunteer opportunities on an interactive city map.
 
 Built with ❤️ for social impact.
+
